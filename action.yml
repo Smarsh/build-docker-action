@@ -1,0 +1,10 @@
+name: Build Images
+description: 'Weekly build docker images'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+inputs:
+  DOCKER_USERNAME:
+    required: true
+  DOCKER_PASSWORD:
+    required: true
