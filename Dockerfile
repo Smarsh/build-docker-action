@@ -2,4 +2,4 @@ FROM docker:stable
 
 COPY entrypoint.sh /entrypoint.sh
 
-ENTRYPOINT ["/entrypoint.sh"]
+CMD ["sh", "/entrypoint.sh"]
