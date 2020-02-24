@@ -2,19 +2,21 @@
 
 set -eu
 
+echo ${DOCKER_PASSWORD} > my_password.txt
+
+cat my_password.txt | docker login -u ${DOCKER_USERNAME} --password-stdin
+
 for image in ./*; do
       image_name="${image##*/}"
-      #pipeline_name="${filename%.*}"
 
-      cd ${image_name}
+      if [$file != "README.MD"] || [$file != ".github"] ; then
 
-      echo ${DOCKER_PASSWORD} > my_password.txt
-    
-      cat my_password.txt | docker login -u ${DOCKER_USERNAME} --password-stdin
+            cd ${image_name}
 
-      docker build -t smarshops/${image_name} .
+            docker build -t smarshops/${image_name} .
 
-      docker push smarshops/${image_name}
+            docker push smarshops/${image_name}
 
-      cd ../
+            cd ../
+      fi
 done
