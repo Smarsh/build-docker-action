@@ -9,7 +9,7 @@ cat my_password.txt | docker login -u ${DOCKER_USERNAME} --password-stdin
 for image in ./*; do
       image_name="${image##*/}"
 
-      if [$file != "README.MD"] || [$file != ".github"] ; then
+      if [$image != "README.MD"] || [$image != ".github"] ; then
 
             cd ${image_name}
 
