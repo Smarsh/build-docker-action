@@ -14,7 +14,7 @@ home=$PWD
 
 echo "path $PWD"
 for image in *; do
-      if [ "$image" != README.md ] && [ "$image" != .github ] && [ "$image" != test.sh ]; then
+      if [ "$image" != README.md ] && [ "$image" != .github ]; then
             image_name="${image##*/}"
             cd $image_name
             docker build -t smarshops/${image_name} .
