@@ -2,21 +2,23 @@
 
 set -eu
 
-echo ${DOCKER_PASSWORD} > my_password.txt
 
-cat my_password.txt | docker login -u ${DOCKER_USERNAME} --password-stdin
+credhub login --skip-tls-validation
 
+DOCKER_USERNAME=`credhub get -q -n concourse/devops/docker-hub-username`
+DOCKER_PASSWORD=`credhub get -q -n concourse/devops/docker-hub-password`
+
+docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+
+home=$PWD
+
+echo "path $PWD"
 for image in *; do
-      image_name="${image##*/}"
-
-      if [$image != "README.MD"] || [$image != ".github"] ; then
-
-            cd ${image_name}
-
+      if [ "$image" != README.md ] && [ "$image" != .github ] && [ "$image" != test.sh ]; then
+            image_name="${image##*/}"
+            cd $image_name
             docker build -t smarshops/${image_name} .
-
             docker push smarshops/${image_name}
-
-            cd ../
+            cd $home
       fi
 done
