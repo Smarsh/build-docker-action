@@ -12,12 +12,13 @@ docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
 
 home=$PWD
 
-echo "path $PWD"
 for image in *; do
       if [ "$image" != README.md ] && [ "$image" != .github ] && [ "$image" != test.sh ]; then
             image_name="${image##*/}"
             cd $image_name
+            echo "<----------------------- Building smarshops/$image_name ----------------------->"
             docker build -t smarshops/${image_name} .
+            echo "<----------------------- Pushing smarshops/$image_name ----------------------->"
             docker push smarshops/${image_name}
             cd $home
       fi
