@@ -12,14 +12,22 @@ docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
 
 home=$PWD
 
-for image in *; do
-      if [ "$image" != README.md ] && [ "$image" != .github ]; then
-            image_name="${image##*/}"
-            cd $image_name
-            echo "<----------------------- Building smarshops/$image_name ----------------------->"
-            docker build -t smarshops/${image_name} .
-            echo "<----------------------- Pushing smarshops/$image_name ----------------------->"
-            docker push smarshops/${image_name}
-            cd $home
-      fi
-done
+if [ -z $IMAGE_TO_BUILD ]; then
+      for image in *; do
+            if [ "$image" != README.md ] && [ "$image" != .github ] && [ "$image" != test.sh ]; then
+                  image_name="${image##*/}"
+                  cd $image_name
+                  echo "<----------------------- Building smarshops/$image_name ----------------------->"
+                  docker build $ARGS -t smarshops/${image_name} .
+                  echo "<----------------------- Pushing smarshops/$image_name ----------------------->"
+                  docker push smarshops/${image_name}
+                  cd $home
+            fi
+      done
+else
+      cd $IMAGE_TO_BUILD
+      echo "<----------------------- Building smarshops/$IMAGE_TO_BUILD ----------------------->"
+      docker build $ARGS -t smarshops/$IMAGE_TO_BUILD .
+      echo "<----------------------- Pushing smarshops/$IMAGE_TO_BUILD ----------------------->"
+      docker push smarshops/$IMAGE_TO_BUILD
+fi
