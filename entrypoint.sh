@@ -18,7 +18,7 @@ if [ -z $IMAGE_TO_BUILD ]; then
                   image_name="${image##*/}"
                   cd $image_name
                   echo "<----------------------- Building smarshops/$image_name ----------------------->"
-                  docker build -t smarshops/${image_name} .
+                  docker build $ARGS -t smarshops/${image_name} .
                   echo "<----------------------- Pushing smarshops/$image_name ----------------------->"
                   docker push smarshops/${image_name}
                   cd $home
@@ -27,7 +27,7 @@ if [ -z $IMAGE_TO_BUILD ]; then
 else
       cd $IMAGE_TO_BUILD
       echo "<----------------------- Building smarshops/$IMAGE_TO_BUILD ----------------------->"
-      docker build -t smarshops/$IMAGE_TO_BUILD .
+      docker build $ARGS -t smarshops/$IMAGE_TO_BUILD .
       echo "<----------------------- Pushing smarshops/$IMAGE_TO_BUILD ----------------------->"
       docker push smarshops/$IMAGE_TO_BUILD
 fi
