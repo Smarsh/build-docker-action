@@ -12,7 +12,7 @@ docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
 
 home=$PWD
 
-if [ -z $IMAGE_TO_BUILD ]; then
+if [[ -z $IMAGE_TO_BUILD ]]; then
       for image in *; do
             if [ "$image" != README.md ] && [ "$image" != .github ] && [ "$image" != test.sh ]; then
                   image_name="${image##*/}"
