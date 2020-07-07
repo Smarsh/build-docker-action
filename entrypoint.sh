@@ -27,7 +27,7 @@ if [[ -z $IMAGE_TO_BUILD ]]; then
 else
       cd $IMAGE_TO_BUILD
       echo "<----------------------- Building smarshops/$IMAGE_TO_BUILD ----------------------->"
-      if [[ -z $ARGS ]]; then
+      if [[ -z "$ARGS" ]]; then
             docker build $ARGS -t smarshops/$IMAGE_TO_BUILD .
       else
             docker build $ARGS -t smarshops/$IMAGE_TO_BUILD .
