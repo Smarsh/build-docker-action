@@ -14,7 +14,7 @@ home=$PWD
 if [[ -z $IMAGE_TO_BUILD ]]; then
       pivnet login --api-token=$PIVNET_TOKEN
 
-      pivnet download-product-files --product-slug='pcf-app-autoscaler' --release-version='2.0.233' --product-file-id=516742
+      pivnet download-product-files --product-slug='pcf-app-autoscaler' --release-version='2.0.233' --product-file-id=516744
       
       for image in *; do
             if [ "$image" != README.md ] && [ "$image" != .github ] && [ "$image" != test.sh ]; then
