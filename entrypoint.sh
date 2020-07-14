@@ -12,9 +12,14 @@ docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
 home=$PWD
 
 if [[ -z $IMAGE_TO_BUILD ]]; then
+      pivnet login --api-token=$PIVNET_TOKEN
+
+      pivnet download-product-files --product-slug='pcf-app-autoscaler' --release-version='2.0.233' --product-file-id=516742
+      
       for image in *; do
             if [ "$image" != README.md ] && [ "$image" != .github ] && [ "$image" != test.sh ]; then
                   image_name="${image##*/}"
+                  cp autoscaler-for-pcf-cliplugin-linux32-binary-2.0.233 $image_name/
                   cd $image_name
                   echo "<----------------------- Building smarshops/$image_name ----------------------->"
                   docker build $ARGS -t smarshops/${image_name} .
