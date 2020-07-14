@@ -11,6 +11,8 @@ docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
 
 home=$PWD
 
+echo -e "\nPATH $PWD\n"
+
 pivnet login --api-token=$PIVNET_TOKEN
 
 pivnet download-product-files --product-slug='pcf-app-autoscaler' --release-version='2.0.233' --product-file-id=516742
