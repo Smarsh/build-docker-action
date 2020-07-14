@@ -17,8 +17,6 @@ pivnet login --api-token=$PIVNET_TOKEN
 
 pivnet download-product-files --product-slug='pcf-app-autoscaler' --release-version='2.0.233' --product-file-id=516742
 
-mv autoscaler-for-pcf-cliplugin-linux32-binary-2.0.233 github/workspace/
-
 if [[ -z $IMAGE_TO_BUILD ]]; then
       for image in *; do
             if [ "$image" != README.md ] && [ "$image" != .github ] && [ "$image" != test.sh ]; then
