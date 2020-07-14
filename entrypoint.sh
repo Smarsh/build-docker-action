@@ -11,10 +11,6 @@ docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
 
 home=$PWD
 
-pivnet login --api-token=$PIVNET_TOKEN
-
-pivnet download-product-files --product-slug='pcf-app-autoscaler' --release-version='2.0.233' --product-file-id=516742
-
 if [[ -z $IMAGE_TO_BUILD ]]; then
       for image in *; do
             if [ "$image" != README.md ] && [ "$image" != .github ] && [ "$image" != test.sh ]; then
@@ -29,7 +25,10 @@ if [[ -z $IMAGE_TO_BUILD ]]; then
       done
 else
       cd $IMAGE_TO_BUILD
-      echo -e "\nPATH $PWD\n"
+      pivnet login --api-token=$PIVNET_TOKEN
+
+      pivnet download-product-files --product-slug='pcf-app-autoscaler' --release-version='2.0.233' --product-file-id=516742
+      
       echo "<----------------------- Building smarshops/$IMAGE_TO_BUILD ----------------------->"
       if [[ -z "$ARGS" ]]; then
             docker build $ARGS -t smarshops/$IMAGE_TO_BUILD .

@@ -1,6 +1,6 @@
 FROM alpinelinux/docker-cli:latest
 
-RUN apk update --no-cache && apk wget add gettext bash
+RUN apk update --no-cache && apk add wget gettext bash
 
 COPY entrypoint.sh /entrypoint.sh
 
