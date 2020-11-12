@@ -30,10 +30,11 @@ if [[ -z $IMAGE_TO_BUILD ]]; then
       done
 else
       cd $IMAGE_TO_BUILD
-      pivnet login --api-token=$PIVNET_TOKEN
+      if [[ $PIVNET_TOKEN ]]; then
+        pivnet login --api-token=$PIVNET_TOKEN
 
-      pivnet download-product-files --product-slug='pcf-app-autoscaler' --release-version='2.0.233' --product-file-id=516744
-      
+        pivnet download-product-files --product-slug='pcf-app-autoscaler' --release-version='2.0.233' --product-file-id=516744
+      fi
       echo "<----------------------- Building smarshops/$IMAGE_TO_BUILD ----------------------->"
       if [[ -z "$ARGS" ]]; then
             docker build $ARGS -t smarshops/$IMAGE_TO_BUILD .
